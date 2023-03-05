@@ -1,0 +1,80 @@
+﻿@page "/lamecube"
+@inherits ComponentBase
+<h3> Nu am avut idei sincer sa iti zic, asa ca am facut un cub de genul DVD pentru o nostalgie :) </h3>
+<div style="position:relative; width:600px; height:400px; background-color:black;">
+    <div style="position:absolute; width:50px; height:50px; background-color:firebrick; top:@Ypx; left:@Xpx;"></div>
+</div>
+<button @onlick="increaseSpeed">Increase speed</button>
+<button @onlick="decreaseSpeed">Decrease speed</button>
+<button @onlick="resetSpeed">Reset speed</button>
+
+
+<div>
+    <h3>SpeedX: @SpeedX</h3>
+    <h3>SpeedY: @SpeedY</h3>
+</div>
+
+
+<p> in acelasi timp.. nu am reusit sa fac butoanele sa mearga asa ca le-am lasat asa :))</p>
+@code {
+    private int X = 0;
+    private int Y = 0;
+    private int SpeedX = 10;
+    private int SpeedY = 6;
+    private int Width = 600;
+    private int Height = 400;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(1000);
+        SetTimer();
+    }
+
+    private void SetTimer()
+    {
+        var timer = new Timer(Update, null, 0, 50);
+    }
+
+    private void Update(object state)
+    {
+        X += SpeedX;
+        Y += SpeedY;
+        if (X < 0 || X + 50 > Width)
+        {
+            SpeedX = -SpeedX;
+            X = Math.Max(Math.Min(X, Width - 50), 0);
+        }
+        if (Y < 0 || Y + 50 > Height)
+        {
+            SpeedY = -SpeedY;
+            Y = Math.Max(Math.Min(Y, Height - 50), 0);
+        }
+        InvokeAsync(StateHasChanged);
+    }
+    private string Xpx => $"{X}px";
+    private string Ypx => $"{Y}px";
+
+    private void increaseSpeed()
+    {
+        SpeedX = Math.Sign(SpeedX) * (Math.Abs(SpeedX) + 1);
+        SpeedY = Math.Sign(SpeedY) * (Math.Abs(SpeedY) + 1);
+        Update(null);
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void decreaseSpeed()
+    {
+        SpeedX = Math.Sign(SpeedX) * Math.Max(1, Math.Abs(SpeedX) - 1);
+        SpeedY = Math.Sign(SpeedY) * Math.Max(1, Math.Abs(SpeedY) - 1);
+        Update(null);
+        InvokeAsync(StateHasChanged);
+    }
+
+    private void resetSpeed()
+    {
+        SpeedX = 10;
+        SpeedY = 6;
+        Update(null);
+        InvokeAsync(StateHasChanged);
+    }
+}

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using TodoBlazorWasm;
-
+using Syncfusion.Blazor;
 namespace Company.WebApplication1
 {
     public class Program
@@ -12,8 +12,8 @@ namespace Company.WebApplication1
             builder.RootComponents.Add<App>("#app");
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
-            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-
+            builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7216") });
+            builder.Services.AddSyncfusionBlazor();
             await builder.Build().RunAsync();
         }
     }
