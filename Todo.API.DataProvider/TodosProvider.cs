@@ -33,6 +33,7 @@ namespace Todo.API.DataProvider
             var itemToEdit = await GetTodo(item.Id.Value);
             itemToEdit.Title = item.Title;
             itemToEdit.IsDone = item.IsDone;
+            itemToEdit.Date = item.Date;
         }
 
         public async Task Remove(Guid todoId)
@@ -57,9 +58,9 @@ namespace Todo.API.DataProvider
         {
             return new List<ToDoItem>
             {
-                new ToDoItem(Guid.NewGuid(), "Read from a book", false),
-                new ToDoItem(Guid.NewGuid(), "Hit the gym", false),
-                new ToDoItem(Guid.NewGuid(), "Meeting at Cegeka Academy", false)
+                new ToDoItem(Guid.NewGuid(), "Read from a book", false, DateTime.Today.AddHours(29)),
+                new ToDoItem(Guid.NewGuid(), "Hit the gym", false,DateTime.Today.AddDays(1).AddHours(19)),
+                new ToDoItem(Guid.NewGuid(), "Meeting at Cegeka Academy", false,DateTime.Parse("2023-03-07 16:00"))
             };
         }
 

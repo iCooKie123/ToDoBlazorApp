@@ -21,6 +21,14 @@
             </label>
         </div>
 
+        <div class="form-group row">
+            <label for="date" class="col-sm-3">Deadline: </label>
+            <InputDate id="date" class="form-control col-sm-8" @bind-Value="@TodoItem.Date"></InputDate>
+            
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => TodoItem.Date)" />
+        </div>
+
+
         <section>
             <input type="submit" class="btn btn-primary edit-btn" value="Save" />
             <a class="btn btn-outline-primary" @onclick="@NavigateToOverview">Back to list</a>

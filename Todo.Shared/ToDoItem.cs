@@ -14,11 +14,12 @@ namespace Todo.Shared
 
         }
 
-        public ToDoItem(Guid id, string title = "", bool isDone = false)
+        public ToDoItem(Guid id, string title = "", bool isDone = false,DateTime? dateTime=null)
         {
             Id = id;
             Title = title;
             IsDone = isDone;
+            Date = dateTime;
         }
 
         public Guid? Id { get; set; }
@@ -28,5 +29,7 @@ namespace Todo.Shared
         public string Title { get; set; }
 
         public bool IsDone { get; set; }
+
+        public DateTime? Date { get; set; }
     }
 }
